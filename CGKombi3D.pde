@@ -39,7 +39,7 @@ void initMeshes(Mesh[] meshes) {
 
 void drawMeshes(Mesh[] meshes) {
     for (Mesh mesh : meshes) {
-        stroke(mesh.fillColor);
+        mesh.shape.setFill(mesh.fillColor);
         shape(mesh.shape);
     }
 }
