@@ -46,16 +46,26 @@ void drawMeshes(Mesh[] meshes) {
 
 void setup() {
     size(800, 800, P3D);
-    PVector[] vertices = {new PVector(100, 100, 10), new PVector(200, 100, 10), new PVector(200, 200, 10), new PVector(100, 200, 10)};
-    int[] indices = {0, 1, 2, 3};
-    mesh = new Mesh(vertices, indices, #1f0f0f);
+    PVector[] vertices = {
+        new PVector(100, 100, 10),
+        new PVector(150, 90, 10),
+        new PVector(175, 85, 10),
+        new PVector(200, 200, 3),
+        new PVector(150, 200, 5),
+        new PVector(90, 200, 10)
+    };
+    int[] indices = {0, 1, 2, 3, 4, 5};
+    mesh = new Mesh(vertices, indices, #1ffafa);
     Mesh[] meshes = {mesh};
     initMeshes(meshes);
 }
 
 void draw() {
     background(0);
-    translate(width/2, height/2, -100);
+    directionalLight(126, 126, 126, 0, 0, -1);
+    ambientLight(102, 102, 102);
+    camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
+    translate(width / 2, height / 2, -100);
     Mesh[] meshes = {mesh};
     drawMeshes(meshes);
 }
