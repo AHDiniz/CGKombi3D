@@ -8,55 +8,12 @@ int angleX = 0, angleY = 0;
 
 boolean canAddMousePos = false;
 
-Mesh mesh;
-
-class Mesh {
-    PVector[] vertices;
-    int[] indices;
-    color fillColor;
-    PShape shape;
-
-    public Mesh(PVector[] vertices, int[] indices, color fillColor) {
-        this.vertices = vertices;
-        this.indices = indices;
-        this.fillColor = fillColor;
-    }
-}
-
-void initMeshes(Mesh[] meshes) {
-    for (Mesh mesh : meshes) {
-        mesh.shape = createShape();
-        mesh.shape.beginShape();
-        for (int index : mesh.indices) {
-            float x = mesh.vertices[index].x;
-            float y = mesh.vertices[index].y;
-            float z = mesh.vertices[index].z;
-            mesh.shape.vertex(x, y, z);
-        }
-        mesh.shape.endShape(CLOSE);
-    }
-}
-
-void drawMeshes(Mesh[] meshes) {
-    for (Mesh mesh : meshes) {
-        mesh.shape.setFill(mesh.fillColor);
-        shape(mesh.shape);
-    }
-}
+Mesh body;
 
 void setup() {
     size(800, 800, P3D);
-    PVector[] vertices = {
-        new PVector(100, 100, 10),
-        new PVector(150, 90, 10),
-        new PVector(175, 85, 10),
-        new PVector(200, 200, 3),
-        new PVector(150, 200, 5),
-        new PVector(90, 200, 10)
-    };
-    int[] indices = {0, 1, 2, 3, 4, 5};
-    mesh = new Mesh(vertices, indices, #1ffafa);
-    Mesh[] meshes = {mesh};
+    body = buildBody();
+    Mesh[] meshes = {body};
     initMeshes(meshes);
 }
 
@@ -65,8 +22,8 @@ void draw() {
     directionalLight(126, 126, 126, 0, 0, -1);
     ambientLight(102, 102, 102);
     camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
-    translate(width / 2, height / 2, -100);
-    Mesh[] meshes = {mesh};
+    translate(0, 0, -100);
+    Mesh[] meshes = {body};
     drawMeshes(meshes);
 }
 
