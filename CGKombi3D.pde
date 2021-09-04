@@ -1,6 +1,6 @@
 PShape test;
 
-int height = 800;
+int height = 600;
 int width = 800;
 int posX = 0, posY = 0;
 int prevMouseX = 0, prevMouseY = 0;
@@ -9,11 +9,15 @@ int angleX = 0, angleY = 0;
 boolean canAddMousePos = false;
 
 Mesh body;
+Mesh rightWindow;
+Mesh leftWindow;
 
 void setup() {
-    size(800, 800, P3D);
+    size(800, 600, P3D);
     body = buildBody();
-    Mesh[] meshes = {body};
+    rightWindow = buildRightWindow();
+    leftWindow = buildLeftWindow();
+    Mesh[] meshes = {body, rightWindow, leftWindow};
     initMeshes(meshes);
 }
 
@@ -23,7 +27,7 @@ void draw() {
     ambientLight(102, 102, 102);
     camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
     translate(0, 0, -100);
-    Mesh[] meshes = {body};
+    Mesh[] meshes = {body, rightWindow, leftWindow};
     drawMeshes(meshes);
 }
 
