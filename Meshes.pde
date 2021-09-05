@@ -77,3 +77,43 @@ Mesh buildLeftWindow() {
     Mesh window = new Mesh(vertices, indices, #1ffafa);
     return window;
 }
+
+Mesh buildLeftMirror() {
+    PVector[] vertices = {
+        new PVector(160, 370, 30),
+        new PVector(170, 375, 30),
+        new PVector(180, 390, 30),
+        new PVector(180, 420, 30),
+        new PVector(170, 387, 30),
+        new PVector(160, 380, 30)
+    };
+    int[] indices = {0, 1, 2, 3, 4, 5};
+    Mesh mirror = new Mesh(vertices, indices, #aaa9ad);
+    return mirror;
+}
+
+Mesh buildRightMirror() {
+    PVector[] vertices = {
+        new PVector(640, 370, 30),
+        new PVector(630, 375, 30),
+        new PVector(620, 390, 30),
+        new PVector(620, 420, 30),
+        new PVector(630, 387, 30),
+        new PVector(640, 380, 30)
+    };
+    int[] indices = {0, 1, 2, 3, 4, 5};
+    Mesh mirror = new Mesh(vertices, indices, #aaa9ad);
+    return mirror;
+}
+
+Mesh buildLicense() {
+    PVector[] vertices = {
+        new PVector(350, 550, 64),
+        new PVector(450, 550, 64),
+        new PVector(450, 570, 64),
+        new PVector(350, 570, 64)
+    };
+    int[] indices = {0, 1, 2, 3};
+    Mesh license = new Mesh(vertices, indices, #aaa9ad);
+    return license;
+}

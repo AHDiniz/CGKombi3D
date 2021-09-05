@@ -11,13 +11,19 @@ boolean canAddMousePos = false;
 Mesh body;
 Mesh rightWindow;
 Mesh leftWindow;
+Mesh leftMirror;
+Mesh rightMirror;
+Mesh license;
 
 void setup() {
     size(800, 600, P3D);
     body = buildBody();
     rightWindow = buildRightWindow();
     leftWindow = buildLeftWindow();
-    Mesh[] meshes = {body, rightWindow, leftWindow};
+    leftMirror = buildLeftMirror();
+    rightMirror = buildRightMirror();
+    license = buildLicense();
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror, rightMirror, license};
     initMeshes(meshes);
 }
 
@@ -27,7 +33,7 @@ void draw() {
     ambientLight(102, 102, 102);
     camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
     translate(0, 0, -100);
-    Mesh[] meshes = {body, rightWindow, leftWindow};
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror, rightMirror, license};
     drawMeshes(meshes);
 }
 
