@@ -6,13 +6,11 @@ int posX = 0, posY = 0;
 int prevMouseX = 0, prevMouseY = 0;
 int angleX = 0, angleY = 0;
 
-boolean canAddMousePos = false;
-
 Mesh body;
 Mesh rightWindow;
 Mesh leftWindow;
-Mesh leftMirror;
-Mesh rightMirror;
+RearMirror leftMirror;
+RearMirror rightMirror;
 Mesh license;
 
 void setup() {
@@ -20,10 +18,10 @@ void setup() {
     body = buildBody();
     rightWindow = buildRightWindow();
     leftWindow = buildLeftWindow();
-    leftMirror = buildLeftMirror();
-    rightMirror = buildRightMirror();
+    leftMirror = new RearMirror(new PVector(160, 370, 30), true);
+    rightMirror = new RearMirror(new PVector(640, 370, 30));
     license = buildLicense();
-    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror, rightMirror, license};
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
     initMeshes(meshes);
 }
 
@@ -33,12 +31,20 @@ void draw() {
     ambientLight(102, 102, 102);
     camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
     translate(0, 0, -100);
-    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror, rightMirror, license};
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
     drawMeshes(meshes);
 }
 
 void keyPressed() {
-    
+    if (key == 'r' || key == 'R') {
+        if (leftMirror.isOpen())
+            leftMirror.open();
+        else leftMirror.close();
+
+        if (rightMirror.isOpen())
+            rightMirror.open();
+        else rightMirror.close();
+    }
 }
 
 void keyReleased() {
@@ -46,13 +52,9 @@ void keyReleased() {
 }
 
 void mousePressed() {
-    if (mouseButton == LEFT) {
-        canAddMousePos = true;
-    }
+    
 }
 
 void mouseReleased() {
-    if (mouseButton == RIGHT) {
-        canAddMousePos = false;
-    }
+    
 }
