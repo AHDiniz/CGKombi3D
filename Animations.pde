@@ -40,12 +40,20 @@ class RearMirror {
 
     private void setupOpenLeft() {
         PVector[] vertices = {
-            new PVector(anchor.x, anchor.y, anchor.z),
-            new PVector(anchor.x + 10, anchor.y + 5, anchor.z),
-            new PVector(anchor.x + 20, anchor.y + 20, anchor.z),
-            new PVector(anchor.x + 20, anchor.y + 50, anchor.z),
-            new PVector(anchor.x + 10, anchor.y + 17, anchor.z),
-            new PVector(anchor.x, anchor.y + 10, anchor.z)
+            // new PVector(anchor.x, anchor.y, anchor.z),
+            // new PVector(anchor.x + 10, anchor.y + 5, anchor.z),
+            // new PVector(anchor.x + 20, anchor.y + 20, anchor.z),
+            // new PVector(anchor.x + 20, anchor.y + 50, anchor.z),
+            // new PVector(anchor.x + 10, anchor.y + 17, anchor.z),
+            // new PVector(anchor.x, anchor.y + 10, anchor.z)
+            anchor,
+            new PVector(anchor.x     , anchor.y + 10, anchor.z),
+            new PVector(anchor.x - 4 , anchor.y + 7 , anchor.z),
+            new PVector(anchor.x - 6 , anchor.y     , anchor.z),
+            new PVector(anchor.x - 10, anchor.y - 30, anchor.z),
+            new PVector(anchor.x - 30, anchor.y - 35, anchor.z),
+            new PVector(anchor.x - 28, anchor.y - 45, anchor.z),
+            new PVector(anchor.x - 6 , anchor.y - 42, anchor.z)
         };
         int[] indices = {0, 1, 2, 3, 4, 5};
         mesh = new Mesh(vertices, indices, #aaa9ad);
@@ -53,12 +61,20 @@ class RearMirror {
 
     private void setupOpenRight() {
         PVector[] vertices = {
-            new PVector(anchor.x, anchor.y, anchor.z),
-            new PVector(anchor.x - 10, anchor.y + 5, anchor.z),
-            new PVector(anchor.x - 20, anchor.y + 20, anchor.z),
-            new PVector(anchor.x - 20, anchor.y + 50, anchor.z),
-            new PVector(anchor.x - 10, anchor.y + 17, anchor.z),
-            new PVector(anchor.x, anchor.y + 10, anchor.z)
+            // new PVector(anchor.x, anchor.y, anchor.z),
+            // new PVector(anchor.x - 10, anchor.y + 5, anchor.z),
+            // new PVector(anchor.x - 20, anchor.y + 20, anchor.z),
+            // new PVector(anchor.x - 20, anchor.y + 50, anchor.z),
+            // new PVector(anchor.x - 10, anchor.y + 17, anchor.z),
+            // new PVector(anchor.x, anchor.y + 10, anchor.z)
+            anchor,
+            new PVector(anchor.x     , anchor.y + 10, anchor.z),
+            new PVector(anchor.x + 4 , anchor.y + 7 , anchor.z),
+            new PVector(anchor.x + 6 , anchor.y     , anchor.z),
+            new PVector(anchor.x + 10, anchor.y - 30, anchor.z),
+            new PVector(anchor.x + 30, anchor.y - 35, anchor.z),
+            new PVector(anchor.x + 28, anchor.y - 45, anchor.z),
+            new PVector(anchor.x + 6 , anchor.y - 42, anchor.z)
         };
         int[] indices = {0, 1, 2, 3, 4, 5};
         mesh = new Mesh(vertices, indices, #aaa9ad);
@@ -66,12 +82,14 @@ class RearMirror {
 
     private void setupClosedLeft() {
         PVector[] vertices = {
-            new PVector(anchor.x, anchor.y, anchor.z),
-            new PVector(anchor.x, anchor.y + 5, anchor.z + 10),
-            new PVector(anchor.x, anchor.y + 20, anchor.z + 20),
-            new PVector(anchor.x, anchor.y + 50, anchor.z + 20),
-            new PVector(anchor.x, anchor.y + 17, anchor.z + 10),
-            new PVector(anchor.x, anchor.y + 10, anchor.z)
+            anchor,
+            new PVector(anchor.x, anchor.y + 10, anchor.z),
+            new PVector(anchor.x, anchor.y + 7 , anchor.z - 4),
+            new PVector(anchor.x, anchor.y     , anchor.z - 6),
+            new PVector(anchor.x, anchor.y - 30, anchor.z - 10),
+            new PVector(anchor.x, anchor.y - 35, anchor.z - 30),
+            new PVector(anchor.x, anchor.y - 45, anchor.z - 28),
+            new PVector(anchor.x, anchor.y - 42, anchor.z - 6) 
         };
         int[] indices = {0, 1, 2, 3, 4, 5};
         mesh = new Mesh(vertices, indices, #aaa9ad);
@@ -79,12 +97,14 @@ class RearMirror {
 
     private void setupClosedRight() {
         PVector[] vertices = {
-            new PVector(anchor.x, anchor.y, anchor.z),
-            new PVector(anchor.x, anchor.y + 5, anchor.z + 10),
-            new PVector(anchor.x, anchor.y + 20, anchor.z + 20),
-            new PVector(anchor.x, anchor.y + 50, anchor.z + 20),
-            new PVector(anchor.x, anchor.y + 17, anchor.z + 10),
-            new PVector(anchor.x, anchor.y + 10, anchor.z)
+            anchor,
+            new PVector(anchor.x, anchor.y + 10, anchor.z),
+            new PVector(anchor.x, anchor.y + 7 , anchor.z - 4),
+            new PVector(anchor.x, anchor.y     , anchor.z - 6),
+            new PVector(anchor.x, anchor.y - 30, anchor.z - 10),
+            new PVector(anchor.x, anchor.y - 35, anchor.z - 30),
+            new PVector(anchor.x, anchor.y - 45, anchor.z - 28),
+            new PVector(anchor.x, anchor.y - 42, anchor.z - 6) 
         };
         int[] indices = {0, 1, 2, 3, 4, 5};
         mesh = new Mesh(vertices, indices, #aaa9ad);
