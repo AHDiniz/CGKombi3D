@@ -19,7 +19,7 @@ void setup() {
     rightWindow = buildRightWindow();
     leftWindow = buildLeftWindow();
     leftMirror = new RearMirror(new PVector(160, 370, 30), true);
-    rightMirror = new RearMirror(new PVector(640, 370, 30));
+    rightMirror = new RearMirror(new PVector(640, 370, 30), false);
     license = buildLicense();
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
     initMeshes(meshes);
@@ -38,12 +38,12 @@ void draw() {
 void keyPressed() {
     if (key == 'r' || key == 'R') {
         if (leftMirror.isOpen())
-            leftMirror.open();
-        else leftMirror.close();
+            leftMirror.close();
+        else leftMirror.open();
 
         if (rightMirror.isOpen())
-            rightMirror.open();
-        else rightMirror.close();
+            rightMirror.close();
+        else rightMirror.open();
     }
 }
 

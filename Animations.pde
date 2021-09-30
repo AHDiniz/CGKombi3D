@@ -3,7 +3,7 @@ class RearMirror {
     private PVector anchor;
     private Mesh mesh;
 
-    public RearMirror(PVector anchor, boolean left = false) {
+    public RearMirror(PVector anchor, boolean left) {
         this.anchor = anchor;
         this.left = left;
 
@@ -22,10 +22,20 @@ class RearMirror {
 
     public void open() {
         open = true;
+        if (left)
+            this.setupOpenLeft();
+        else this.setupOpenRight();
+        Mesh[] m = {mesh};
+        initMeshes(m);
     }
 
     public void close() {
         open = false;
+        if (left)
+            this.setupClosedLeft();
+        else this.setupClosedRight();
+        Mesh[] m = {mesh};
+        initMeshes(m);
     }
 
     private void setupOpenLeft() {

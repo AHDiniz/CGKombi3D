@@ -13,22 +13,26 @@ class Mesh {
 
 void initMeshes(Mesh[] meshes) {
     for (Mesh mesh : meshes) {
-        mesh.shape = createShape();
-        mesh.shape.beginShape();
-        for (int index : mesh.indices) {
-            float x = mesh.vertices[index].x;
-            float y = mesh.vertices[index].y;
-            float z = mesh.vertices[index].z;
-            mesh.shape.vertex(x, y, z);
+        if (mesh != null) {
+            mesh.shape = createShape();
+            mesh.shape.beginShape();
+            for (int index : mesh.indices) {
+                float x = mesh.vertices[index].x;
+                float y = mesh.vertices[index].y;
+                float z = mesh.vertices[index].z;
+                mesh.shape.vertex(x, y, z);
+            }
+            mesh.shape.endShape(CLOSE);
         }
-        mesh.shape.endShape(CLOSE);
     }
 }
 
 void drawMeshes(Mesh[] meshes) {
     for (Mesh mesh : meshes) {
-        mesh.shape.setFill(mesh.fillColor);
-        shape(mesh.shape);
+        if (mesh != null) {
+            mesh.shape.setFill(mesh.fillColor);
+            shape(mesh.shape);
+        }
     }
 }
 
