@@ -19,9 +19,9 @@ void setup() {
     rightWindow = buildRightWindow();
     leftWindow = buildLeftWindow();
     // new PVector(180, 420, 30)
-    leftMirror = new RearMirror(new PVector(160, 370, 30), true);
+    leftMirror = new RearMirror(new PVector(180, 420, 30), true);
     // new PVector(620, 420, 30)
-    rightMirror = new RearMirror(new PVector(640, 370, 30), false);
+    rightMirror = new RearMirror(new PVector(620, 420, 30), false);
     license = buildLicense();
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
     initMeshes(meshes);

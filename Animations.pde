@@ -9,7 +9,7 @@ class RearMirror {
 
         if (left)
             setupOpenLeft();
-        else setupClosedLeft();
+        else setupOpenRight();
     }
 
     public Mesh getMesh() {
