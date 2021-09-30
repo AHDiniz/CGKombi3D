@@ -13,17 +13,18 @@ RearMirror leftMirror;
 RearMirror rightMirror;
 Mesh license;
 
+Windshield leftWindshield;
+Windshield rightWindshield;
+
 void setup() {
     size(800, 600, P3D);
     body = buildBody();
     rightWindow = buildRightWindow();
     leftWindow = buildLeftWindow();
-    // new PVector(180, 420, 30)
     leftMirror = new RearMirror(new PVector(180, 420, 30), true);
-    // new PVector(620, 420, 30)
     rightMirror = new RearMirror(new PVector(620, 420, 30), false);
     license = buildLicense();
-    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     initMeshes(meshes);
 }
 
@@ -33,7 +34,7 @@ void draw() {
     ambientLight(102, 102, 102);
     camera(mouseX, mouseY, (height / 2) / tan(PI / 6), width / 2, height / 2, 0, 0, 1, 0);
     translate(0, 0, -100);
-    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getMesh(), rightMirror.getMesh(), license};
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     drawMeshes(meshes);
 }
 
@@ -46,6 +47,16 @@ void keyPressed() {
         if (rightMirror.isOpen())
             rightMirror.close();
         else rightMirror.open();
+    }
+
+    if (key == 'l' || key == 'L') {
+        if (leftWindshield.isActive())
+            leftWindshield.deactivate();
+        else leftWindshield.activate();
+
+        if (rightWindshield.isActive())
+            rightWindshield.deactivate();
+        else rightWindshield.activate();
     }
 }
 
