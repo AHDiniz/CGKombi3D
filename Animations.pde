@@ -152,14 +152,23 @@ class RearMirror {
 }
 
 class Windshield {
-    private PVector anchor, init, end;
-    private PVector speedForEachAxis;
+    private PVector anchor;
+    private PVector end;
+    private PVector axis;
+    private float length, speed, initAngle, endAngle;
+    private float[] rotationMatrix = new float[9];
     private boolean active = false;
 
-    public Windshield(PVector anchor, PVector init, PVector speedForEachAxis) {
+    public Windshield(PVector anchor, PVector axis, float length, float speed, float initAngle, float endAngle) {
         this.anchor = anchor;
-        this.init = init;
-        this.speedForEachAxis = speedForEachAxis;
+        this.axis = axis;
+        this.length = length;
+        this.speed = speed;
+        this.initAngle = initAngle;
+        this.endAngle = endAngle;
+        this.end = new PVector();
+
+        this.rotateBy(initAngle);
     }
 
     public boolean isActive() {
@@ -176,5 +185,27 @@ class Windshield {
 
     public void update() {
 
+    }
+
+    private void rotateBy(float angle) {
+        rotationMatrix[0] = (axis.x * axis.x * (1 - cos(angle))) +          cos(angle);
+        rotationMatrix[1] = (axis.x * axis.y * (1 - cos(angle))) + axis.z * sin(angle);
+        rotationMatrix[2] = (axis.x * axis.z * (1 - cos(angle))) - axis.y * sin(angle);
+
+        rotationMatrix[3] = (axis.y * axis.x * (1 - cos(angle))) - axis.z * sin(angle);
+        rotationMatrix[4] = (axis.y * axis.y * (1 - cos(angle))) +          cos(angle);
+        rotationMatrix[5] = (axis.y * axis.z * (1 - cos(angle))) + axis.x * sin(angle);
+
+        rotationMatrix[6] = (axis.z * axis.x * (1 - cos(angle))) + axis.y * sin(angle);
+        rotationMatrix[7] = (axis.z * axis.y * (1 - cos(angle))) - axis.x * sin(angle);
+        rotationMatrix[8] = (axis.z * axis.z * (1 - cos(angle))) +          cos(angle);
+
+        float newX = end.x * rotationMatrix[0] + end.y * rotationMatrix[3] + end.z * rotationMatrix[6];
+        float newY = end.x * rotationMatrix[1] + end.y * rotationMatrix[4] + end.z * rotationMatrix[7];
+        float newZ = end.x * rotationMatrix[2] + end.y * rotationMatrix[5] + end.z * rotationMatrix[8];
+
+        end.x = newX;
+        end.y = newY;
+        end.z = newZ;
     }
 }
