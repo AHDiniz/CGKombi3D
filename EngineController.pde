@@ -9,31 +9,34 @@ class EngineController {
         currentTime = previousTime = millis() * .001f;
     }
 
+    public boolean isActive() {
+        return currentlyOn;
+    }
+
+    public void activate() {
+        currentlyOn = true;
+    }
+
+    public void deactivate() {
+        currentlyOn = false;
+    }
+
     public void updateEngine(){
-        if(keyPressed){
-
-            if (key == 'm' || key == 'M') {
-                currentlyOn = true;
-            }
-
-            if(currentlyOn == true  && previousOn == false) {
-                engineSound.play();
-
-            }
-            else if (currentlyOn == false && previousOn == true){
-                engineSound.stop();
-            }
-
-            currentTime = millis() * .001f;
-
-            float deltaTime = currentTime - previousTime;
-            
-            if (deltaTime >= audioDuration){    
-                currentlyOn = false;
-            }
-            previousOn = currentlyOn;        
-
+        if(currentlyOn == true  && previousOn == false) {
+            engineSound.play();
         }
+        else if (currentlyOn == false && previousOn == true){
+            engineSound.stop();
+        }
+
+        currentTime = millis() * .001f;
+
+        float deltaTime = currentTime - previousTime;
+            
+        if (deltaTime >= audioDuration){    
+            currentlyOn = false;
+        }
+        previousOn = currentlyOn;
     }       
 
 }

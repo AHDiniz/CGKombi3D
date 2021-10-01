@@ -65,6 +65,11 @@ void keyPressed() {
         else rightWindshield.activate();
     }
 
+    if (key == 'm' || key == 'M') {
+        if (engineSound.isActive())
+            engineSound.deactivate();
+        else engineSound.activate();
+    }
 }
 
 void keyReleased() {
