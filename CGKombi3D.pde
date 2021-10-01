@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 PShape test;
 
 int height = 600;
@@ -16,6 +18,8 @@ Mesh license;
 Windshield leftWindshield;
 Windshield rightWindshield;
 
+EngineController engineSound;
+
 void setup() {
     size(800, 600, P3D);
     body = buildBody();
@@ -23,6 +27,7 @@ void setup() {
     leftWindow = buildLeftWindow();
     leftMirror = new RearMirror(new PVector(180, 420, 30), true);
     rightMirror = new RearMirror(new PVector(620, 420, 30), false);
+    engineSound = new EngineController(new SoundFile(this, "mixkit-car-ignition-1535.wav"),10000);
     license = buildLicense();
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     initMeshes(meshes);
@@ -36,6 +41,7 @@ void draw() {
     translate(0, 0, -100);
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     drawMeshes(meshes);
+    engineSound.updateEngine();
 }
 
 void keyPressed() {
@@ -58,6 +64,7 @@ void keyPressed() {
             rightWindshield.deactivate();
         else rightWindshield.activate();
     }
+
 }
 
 void keyReleased() {
