@@ -25,7 +25,7 @@ class EngineController {
         if(currentlyOn == true  && previousOn == false) {
             engineSound.play();
         }
-        else if (currentlyOn == false && previousOn == true){
+        if (currentlyOn == false && previousOn == true){
             engineSound.stop();
         }
 
