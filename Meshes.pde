@@ -121,3 +121,12 @@ Mesh buildLicense() {
     Mesh license = new Mesh(vertices, indices, #aaa9ad);
     return license;
 }
+
+PVector normalVectorOfPlaneMesh(Mesh plane) {
+    PVector a = plane.vertices[0];
+    PVector b = plane.vertices[1];
+    PVector c = plane.vertices[2];
+
+    PVector direction = (new PVector(b.x - a.x, b.y - a.y, b.z - a.z)).cross(new PVector(c.x - a.x, c.y - a.y, c.z - a.z));
+    return direction.normalize();
+}

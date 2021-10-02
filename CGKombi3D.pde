@@ -29,6 +29,10 @@ void setup() {
     rightMirror = new RearMirror(new PVector(620, 420, 30), false);
     engineSound = new EngineController(new SoundFile(this, "mixkit-car-ignition-1535.wav"),10000);
     license = buildLicense();
+
+    leftWindshield  = new Windshield(new PVector(540, 400, 60), 30, 5, 5, 60, 180, 10, 10);
+    rightWindshield = new Windshield(new PVector(240, 400, 60), 30, 5, 5, 60, 180, 10, 10);
+
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     initMeshes(meshes);
 }
@@ -42,6 +46,8 @@ void draw() {
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     drawMeshes(meshes);
     engineSound.updateEngine();
+    leftWindshield.update();
+    rightWindshield.update();
 }
 
 void keyPressed() {

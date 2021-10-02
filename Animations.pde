@@ -154,21 +154,26 @@ class RearMirror {
 class Windshield {
     private PVector anchor;
     private PVector end;
-    private PVector axis;
-    private float length, speed, initAngle, endAngle;
-    private float[] rotationMatrix = new float[9];
+    private float length;
+    private float theta, maxTheta, minTheta, thetaSpeed, deltaTheta;
+    private float phi, maxPhi, minPhi, phiSpeed, deltaPhi;
+    private float currentTime, previousTime, deltaTime;
     private boolean active = false;
 
-    public Windshield(PVector anchor, PVector axis, float length, float speed, float initAngle, float endAngle) {
+    public Windshield(PVector anchor, float length, float thetaSpeed, float phiSpeed, float minTheta, float maxTheta, float minPhi, float maxPhi) {
         this.anchor = anchor;
-        this.axis = axis;
         this.length = length;
-        this.speed = speed;
-        this.initAngle = initAngle;
-        this.endAngle = endAngle;
-        this.end = new PVector();
+        
+        this.minTheta = minTheta; this.maxTheta = maxTheta; this.thetaSpeed = thetaSpeed;
+        this.minPhi   = minPhi;   this.maxPhi   = maxPhi;   this.phiSpeed   = phiSpeed;
+        
+        this.currentTime = this.previousTime = millis() * .001f;
 
-        this.rotateBy(initAngle);
+        this.end = new PVector(
+            anchor.x + length * cos(minPhi) * sin(minTheta),
+            anchor.y + length * sin(minPhi) * sin(minTheta),
+            anchor.z + length               * cos(minTheta)
+        );
     }
 
     public boolean isActive() {
@@ -184,28 +189,36 @@ class Windshield {
     }
 
     public void update() {
+        currentTime = millis() * .001f;
 
-    }
+        deltaTime = currentTime - previousTime;
 
-    private void rotateBy(float angle) {
-        rotationMatrix[0] = (axis.x * axis.x * (1 - cos(angle))) +          cos(angle);
-        rotationMatrix[1] = (axis.x * axis.y * (1 - cos(angle))) + axis.z * sin(angle);
-        rotationMatrix[2] = (axis.x * axis.z * (1 - cos(angle))) - axis.y * sin(angle);
+        if (theta <= minTheta)
+            deltaTheta =  thetaSpeed * deltaTime;
+        else if (theta >= maxTheta)
+            deltaTheta = -thetaSpeed * deltaTime;
+        
+        if (phi <= minPhi)
+            deltaPhi =  phiSpeed * deltaTime;
+        else if (phi >= maxPhi)
+            deltaPhi = -phiSpeed * deltaTime;
+        
+        if (active) {
+            phi   += deltaPhi;
+            theta += deltaTheta;
+        } else {
+            phi   = minPhi;
+            theta = minTheta;
+        }
+        
+        end.x = anchor.x + length * cos(phi) * sin(theta);
+        end.y = anchor.y + length * sin(phi) * sin(theta);
+        end.z = anchor.z + length            * cos(theta);
 
-        rotationMatrix[3] = (axis.y * axis.x * (1 - cos(angle))) - axis.z * sin(angle);
-        rotationMatrix[4] = (axis.y * axis.y * (1 - cos(angle))) +          cos(angle);
-        rotationMatrix[5] = (axis.y * axis.z * (1 - cos(angle))) + axis.x * sin(angle);
+        strokeWeight(10);
+        line(anchor.x, anchor.y, anchor.z, end.x, end.y, end.z);
+        strokeWeight(1);
 
-        rotationMatrix[6] = (axis.z * axis.x * (1 - cos(angle))) + axis.y * sin(angle);
-        rotationMatrix[7] = (axis.z * axis.y * (1 - cos(angle))) - axis.x * sin(angle);
-        rotationMatrix[8] = (axis.z * axis.z * (1 - cos(angle))) +          cos(angle);
-
-        float newX = end.x * rotationMatrix[0] + end.y * rotationMatrix[3] + end.z * rotationMatrix[6];
-        float newY = end.x * rotationMatrix[1] + end.y * rotationMatrix[4] + end.z * rotationMatrix[7];
-        float newZ = end.x * rotationMatrix[2] + end.y * rotationMatrix[5] + end.z * rotationMatrix[8];
-
-        end.x = newX;
-        end.y = newY;
-        end.z = newZ;
+        previousTime = currentTime;
     }
 }
