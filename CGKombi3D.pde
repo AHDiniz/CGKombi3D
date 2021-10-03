@@ -20,6 +20,12 @@ Windshield rightWindshield;
 
 EngineController engineSound;
 
+RegularLight rightLight;
+RegularLight leftLight;
+
+AlertLight rightAlert;
+AlertLight leftAlert;
+
 void setup() {
     size(800, 600, P3D);
     body = buildBody();
@@ -27,14 +33,21 @@ void setup() {
     leftWindow = buildLeftWindow();
     leftMirror = new RearMirror(new PVector(180, 420, 30), true);
     rightMirror = new RearMirror(new PVector(620, 420, 30), false);
-    engineSound = new EngineController(new SoundFile(this, "mixkit-car-ignition-1535.wav"),10000);
     license = buildLicense();
+
+    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
+    initMeshes(meshes);
 
     leftWindshield  = new Windshield(new PVector(540, 400, 60), 30, 5, 5, 60, 180, 10, 10);
     rightWindshield = new Windshield(new PVector(240, 400, 60), 30, 5, 5, 60, 180, 10, 10);
 
-    Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
-    initMeshes(meshes);
+    engineSound = new EngineController(new SoundFile(this, "mixkit-car-ignition-1535.wav"), 10000);
+
+    rightLight = new RegularLight(new PVector(500, 470, 60), #ffffff, #a8aaa1, 30);
+    leftLight = new RegularLight(new PVector(280, 470, 60), #ffffff, #a8aaa1, 30);
+
+    rightAlert = new AlertLight(new PVector(540, 450, 60), .5f, 10, #fc7c03, #fccf03);
+    leftAlert = new AlertLight(new PVector(240, 450, 60), .5f, 10, #fc7c03, #fccf03);
 }
 
 void draw() {
@@ -45,9 +58,17 @@ void draw() {
     translate(0, 0, -100);
     Mesh[] meshes = {body, rightWindow, leftWindow, leftMirror.getHandleMesh(), rightMirror.getHandleMesh(), leftMirror.getMirrorMesh(), rightMirror.getMirrorMesh(), license};
     drawMeshes(meshes);
+    
     engineSound.updateEngine();
+    
     leftWindshield.update();
     rightWindshield.update();
+
+    rightLight.update();
+    leftLight.update();
+
+    rightAlert.update();
+    leftAlert.update();
 }
 
 void keyPressed() {
@@ -75,6 +96,28 @@ void keyPressed() {
         if (engineSound.isActive())
             engineSound.deactivate();
         else engineSound.activate();
+    }
+
+    if (key == 'f' || key == 'F') {
+        if (leftLight.isActive())
+            leftLight.deactivate();
+        else leftLight.activate();
+
+        if (rightLight.isActive())
+            rightLight.deactivate();
+        else rightLight.activate();
+    }
+
+    if (key == CODED) {
+        if (keyCode == LEFT) {
+            if (leftAlert.isActive())
+                leftAlert.deactivate();
+            else leftAlert.activate();
+        } else if (keyCode == RIGHT) {
+            if(rightAlert.isActive())
+                rightAlert.deactivate();
+            else rightAlert.activate();
+        }
     }
 }
 
